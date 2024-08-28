@@ -3,6 +3,8 @@
 import React from 'react';
 import Card from './Card';
 
+import {Link} from 'react-router-dom';
+
 // In the content below, I will look for the div element with the bg-gray(For Developers) card and bg-indigo(For Employers) card
 // and then pass in the Card component repping the individual card. I will insert the contents between the Card component
 
@@ -19,12 +21,12 @@ const HomeCard = () => {
                             <p className="mt-2 mb-4">
                             Browse our React jobs and start your career today
                             </p>
-                            <a
-                            href="/jobs.html"
+                            <Link
+                            to="/jobs"
                             className="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
                             >
                             Browse Jobs
-                            </a>
+                            </Link>
                     </Card>
                     
                     {/* 'For Employers' card is a child component, I specified the default style in Card.jsx and now I'm modifying it and its content in the parent component ->  */}
@@ -33,12 +35,12 @@ const HomeCard = () => {
                         <p className="mt-2 mb-4">
                         List your job to find the perfect developer for the role
                         </p>
-                        <a
-                        href="/add-job.html"
+                        <Link
+                        to="/add-job"
                         className="inline-block bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600"
                         >
                         Add Job
-                        </a>
+                        </Link>
                     </Card>
                 </div>
             </div>
