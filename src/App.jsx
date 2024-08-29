@@ -8,10 +8,14 @@ RouterProvider // -> Provides the router context to the rest of the application.
 
 import MainLayout from './layouts/MainLayout';
 
-
 import HomePage from './pages/HomePage';
 import JobsPage from './pages/JobsPage';
 import NotFoundPage from './pages/NotFoundPage';
+
+// I will also import jobLoader as I have exported it in the SingleJobPage component.
+import SingleJobPage, {jobLoader} from './pages/SingleJobPage';
+
+
 
 
 const router = createBrowserRouter(
@@ -23,7 +27,11 @@ const router = createBrowserRouter(
 
       <Route path='/jobs' element={< JobsPage />} />
 
-      {/* The '*' means any page not found in the spa returns this page. */}
+      {/* The ':' symbolizes that this is a dynamic id to represent a single job id */}
+      <Route path='/jobs/:id' element={< SingleJobPage />} />
+
+
+      {/* The '*' means any page not found, or not created in the spa returns this page. */}
       <Route path='*' element={< NotFoundPage />} />
 
     </Route>

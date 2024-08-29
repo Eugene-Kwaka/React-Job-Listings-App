@@ -64,9 +64,9 @@ const JobListings = ({isHome = false}) => {
         // fetchJobs() is an asynchronous function that is responsible for fetching data from the json-server.
         const fetchJobs = async () => {
 
-            // This line limits the number of job postings in the HomePage to 3 if the prop isHome = true
+            // This line limits the number of job postings in the HomePage to 3 if the prop 'isHome' = true
             // Otherwise it displays the normal 6 job postings like in the JobsPage.
-            const apiURL = isHome ? 'http://localhost:5000/jobs?_limit=3' : 'http://localhost:5000/jobs'
+            const apiURL = isHome ? '/api/jobs?_limit=3' : '/api/jobs'
             
             try{
                 // fetch() API makes a request to the api endpoint and returns a promise that resolves to the response of the request.
