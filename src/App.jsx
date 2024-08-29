@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import JobsPage from './pages/JobsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import AddJobPage from './pages/AddJobPage';
 
 // I will also import jobLoader as I have exported it in the SingleJobPage component.
 import SingleJobPage, {jobLoader} from './pages/SingleJobPage';
@@ -27,8 +28,14 @@ const router = createBrowserRouter(
 
       <Route path='/jobs' element={< JobsPage />} />
 
-      {/* The ':' symbolizes that this is a dynamic id to represent a single job id */}
-      <Route path='/jobs/:id' element={< SingleJobPage />} />
+      {/** The ':' symbolizes that this is a dynamic id to represent a single job id.
+       * I add the jobLoader part as well from the jobLoader() function. 
+       * 
+       */}
+      <Route path='/jobs/:id' element={< SingleJobPage />} loader={jobLoader}/>
+
+    
+      <Route path='/add-job' element={< AddJobPage />} />
 
 
       {/* The '*' means any page not found, or not created in the spa returns this page. */}
