@@ -1,10 +1,14 @@
 // USING DATALOADERS TO FETCH A SPECIFIC JOB BY ITS ID. I'M USING THE useLoaderData() hook. 
 
 
-import { useParams, useLoaderData, Link } from 'react-router-dom';
+import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
+import {toast} from 'react-toastify';
 
-const SingleJobPage = () => {
+
+// Adding the deleteJob() function prop from the App component. 
+const SingleJobPage = ({deleteJob}) => {
+
 
     /**
     * useParams() hook is a component of React Router that is used to access the URL paramers of the current route.
@@ -14,7 +18,7 @@ const SingleJobPage = () => {
     const { id } = useParams();
 
     /**
-     * This method is a part of React Router and not React itself 
+     * This method is a part of React-Router and not React itself. 
      * I DO NOT NEED the useEffect() and useState() hooks for this functionality. 
      * Do enable this function's access in app.jsx, I added the useLoaderData() hook.
      * 
@@ -24,6 +28,31 @@ const SingleJobPage = () => {
     */
     const job = useLoaderData();
 
+    // Navigates me to different Routes in the application.
+    const navigate = useNavigate();
+
+     /**
+     * This method deletes a job posting based on its id. 
+     *
+     */
+     const OnDeleteClick = (jobId) => {
+        // When the Delete Job button is clicked, present a pop-up alert asking a user if they want to delete the job.
+        const confirm = window.confirm("Are you sure you want to delete this job posting?")
+        // If they do not click 'Ok', return back to the page.
+        if(!confirm){
+          return;
+        }
+        // If they click 'Ok', run the DELETE logic from deleteJob() function in the App component and delete the job by its id.
+        deleteJob(jobId);
+
+        // Adding toastify notification just before redirecting
+        toast.success("Job post deleted successfully");
+
+        // Then navigate the user back to the JobsPage.
+        return navigate('/jobs');
+    }
+
+    
     return (
         <>
 
@@ -103,11 +132,16 @@ const SingleJobPage = () => {
             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
               <h3 className="text-xl font-bold mb-6">Manage Job</h3>
               <Link
-               to={`/jobs/edit/${job.id}`}
+               to={`/edit-job/${job.id}`}
                 className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >Edit Job
                 </Link>
-              <button
+              <button 
+                /**
+                 * onClick() is an event handler in JS that triggers a callback function once the clicking event occurs.
+                 * It runs the () => arrow function which then calls the onDeleteClick(job.id) function that takes the job.id value to delete the job.
+                 */
+                onClick={() => OnDeleteClick(job.id)}
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
               >
                 Delete Job

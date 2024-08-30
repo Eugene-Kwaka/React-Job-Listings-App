@@ -1,8 +1,12 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import {toast} from 'react-toastify';
 
 
-const AddJobPage = () => {
+// Adding the addJobSubmit() function prop that takes the newJob object and enables us to send form data to a server or API.
+const AddJobPage = ({ addJobSubmit }) => {
 
 
     // I create state for each field in the form(reps each job property e.g title, type, description...)
@@ -16,8 +20,24 @@ const AddJobPage = () => {
     const [companyContactEmail, setCompanyContactEmail] = useState('');
     const [companyContactPhone, setCompanyContactPhone] = useState('');
 
+
+    /**
+     * This hook programmatically navigates to different routes in the application. 
+     * In this case, it navigates me to the JobsPage('/jobs') after the form is succesfully submitted. 
+     * 
+     * 
+     */
+    const navigate = useNavigate();
+
     // I am creating my own submitForm functionality after adding field values to the form.
     const submitForm = (e) => {
+        /**
+         * Used to prevent the default action of the form submission.
+         * Normally, once a form is submitted, the webpage reloads.
+         * The e.preventDefault() method prevents this behavior and lets us handle form submission using JS instead.
+         * 
+         * It also allows me to implement custom logic for submission, such as sending the form data to my server via an API call without reloading the page. 
+         */
         e.preventDefault();
 
         /* I'm creating an object that will contain all the added values from the field that will submit the data to the server/API*/
@@ -32,11 +52,21 @@ const AddJobPage = () => {
                 description: companyDescription,
                 contactEmail: companyContactEmail,
                 contactPhone: companyContactPhone
-
             },
         };
 
-        console.log(newJob);
+        /**
+         * This prop function has been passed from the App.jsx file to handle the submission of a new Job entry.
+         * The prop contains the addJob() function which contains the POST request that sends the newJob object to our server. 
+         * 
+        */
+        addJobSubmit(newJob);
+
+        // Adding toastify notification just before redirecting
+        toast.success("Job post added successfully");
+        
+        // Once the newJob has been submitted, the useNavigate() -> navigate variable redirects me to the JobPage using the '/jobs' link.
+        return navigate('/jobs')
     }
 
 
