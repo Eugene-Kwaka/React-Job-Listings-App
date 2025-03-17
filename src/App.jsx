@@ -35,12 +35,12 @@ const App = () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-          },
+            },
           // The newJob object will be parsed to a JSON string using JSON.stringify
-          body: JSON.stringify(newJob),
-        });
+            body: JSON.stringify(newJob),
+          });
 
-        return;
+          return;
 
       } catch (error) {
           console.error('Error submitting job:', error);
